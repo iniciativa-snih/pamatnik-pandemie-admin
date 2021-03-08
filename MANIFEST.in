@@ -1,0 +1,4 @@
+include pomnicek/schema.sql
+graft pomnicek/static
+graft pomnicek/templates
+global-exclude *.pyc
