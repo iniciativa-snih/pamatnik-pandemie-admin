@@ -7,11 +7,11 @@ bp = Blueprint("api", __name__)
 
 
 def jsonify(o):
-    return json.dumps(o, ensure_ascii=False).encode("utf8")
+    return json.dumps(o, ensure_ascii=False).encode("utf8"), 200, {"Content-Type": "application/json; charset=utf-8"}
 
 
 @bp.route("/health", methods=["GET"])
-def healt():
+def health():
     return jsonify("Healthy")
 
 
