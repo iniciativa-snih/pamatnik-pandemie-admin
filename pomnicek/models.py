@@ -1,7 +1,9 @@
-from sqlalchemy import Table, Column, ForeignKey, Integer, DateTime, String, Boolean
+from sqlalchemy import Table, Column, ForeignKey, Integer, DateTime, String, Boolean, Date
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from flask_security import UserMixin, RoleMixin
+
+from sqlalchemy_serializer import SerializerMixin
 
 from .database import Base
 
@@ -27,6 +29,7 @@ class Role(Base, RoleMixin):
 
 class User(Base, UserMixin):
     __tablename__ = "user"
+
     id = Column(Integer, primary_key=True)
     first_name = Column(String(255))
     last_name = Column(String(255))
@@ -37,85 +40,28 @@ class User(Base, UserMixin):
     roles = relationship("Role", secondary=user_role_table)
 
 
-class Submit(Base):
-    __tablename__ = "submits"
+class Dead(Base, SerializerMixin):
+    __tablename__ = "dead"
 
-    timestamp = Column(DateTime, index=False, unique=False, nullable=False)
+    date = Column(Date, primary_key=True)
+    daily = Column(Integer, index=False, unique=False, nullable=False)
+    cumulative = Column(Integer, index=False, unique=False, nullable=False)
 
-    date_for = Column(DateTime, primary_key=True)
-
-    submits = Column(Integer, index=False, unique=False, nullable=False)
-
-    def __init__(self, timestamp: datetime, date_for: datetime, submits: int):
-        self.timestamp = timestamp
-        self.date_for = date_for
-        self.submits = submits
+    def __init__(self, date: datetime, daily: int, cumulative: int):
+        self.date = date
+        self.daily = daily
+        self.cumulative = cumulative
 
     def __repr__(self):
-        return f"<Submit {self.timestamp} from {self.date_for} with {self.submits} submits>"
+        return f"<Deads for {self.date} {self.daily}, cumulative {self.cumulative}"
 
 
-class Vaccine(Base):
+class Story(Base, SerializerMixin):
+    __tablename__ = "story"
 
-    __tablename__ = "vaccines"
-
-    timestamp = Column(DateTime, index=False, unique=False, nullable=False)
-
-    date_for = Column(DateTime, primary_key=True)
-
-    first_vaccines = Column(Integer, index=False, unique=False, nullable=False)
-
-    second_vaccines = Column(Integer, index=False, unique=False, nullable=False)
-
-    def __init__(self, timestamp: datetime, date_for: datetime, first_vaccines: int, second_vaccines: int):
-        self.timestamp = timestamp
-        self.date_for = date_for
-        self.first_vaccines = first_vaccines
-        self.second_vaccines = second_vaccines
-
-    def __repr__(self):
-        return (
-            f"<Vaccine {self.timestamp} from {self.date_for} with {self.first_vaccines} and "
-            + f"{self.second_vaccines} vaccines"
-        )
-
-
-class Dead(Base):
-
-    __tablename__ = "deads"
-
-    timestamp = Column(DateTime, index=False, unique=False, nullable=False)
-
-    date_for = Column(DateTime, primary_key=True)
-
-    deads_cumulative = Column(Integer, index=False, unique=False, nullable=False)
-
-    def __init__(self, timestamp: datetime, date_for: datetime, deads_cumulative: int):
-        self.timestamp = timestamp
-        self.date_for = date_for
-        self.deads_cumulative = deads_cumulative
-
-    def __repr__(self):
-        return f"<Dead {self.timestamp} from {self.date_for} with {self.deads_cumulative} deaths"
-
-
-class Case(Base):
-
-    __tablename__ = "cases"
-
-    timestamp = Column(DateTime, index=False, unique=False, nullable=False)
-
-    date_for = Column(DateTime, primary_key=True)
-
-    cases = Column(Integer, index=False, unique=False, nullable=False)
-
-    cases_cumulative = Column(Integer, index=False, unique=False, nullable=False)
-
-    def __init__(self, timestamp: datetime, date_for: datetime, cases: int, cases_cumulative: int):
-        self.timestamp = timestamp
-        self.date_for = date_for
-        self.cases = cases
-        self.cases_cumulative = cases_cumulative
-
-    def __repr__(self):
-        return f"<Case {self.timestamp} from {self.date_for} with {self.cases} cases"
+    id = Column(Integer, primary_key=True)
+    date = Column(Date, nullable=False)
+    name = Column(String, nullable=False)
+    story = Column(String, nullable=True)
+    age = Column(Integer, nullable=True)
+    city = Column(String, nullable=True)

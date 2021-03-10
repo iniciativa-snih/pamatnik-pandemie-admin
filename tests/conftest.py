@@ -1,6 +1,6 @@
 import os
 import pytest
-from datetime import datetime
+from datetime import date
 
 from pomnicek import create_app
 
@@ -18,9 +18,9 @@ def app():
 
         init_db()
 
-        from pomnicek.models import Submit
+        from pomnicek.models import Story
 
-        db_session.add(Submit(datetime.now(), datetime.now(), 100))
+        db_session.add(Story(date=date.today(), name="Aleš M.", story="Soustružník", age=78, city="Hradec Králové"))
         db_session.commit()
 
     yield app

@@ -38,7 +38,7 @@ def create_app(test_config=None):
 
     with app.app_context():
         from .database import db_session
-        from .models import User, Role
+        from .models import User, Role, Story
         from .admin import MyModelView
 
         user_datastore = SQLAlchemySessionUserDatastore(db_session, User, Role)
@@ -52,8 +52,9 @@ def create_app(test_config=None):
             template_mode="bootstrap4",
         )
 
-        admin.add_view(MyModelView(Role, db_session))
+        admin.add_view(MyModelView(Story, db_session))
         admin.add_view(MyModelView(User, db_session))
+        admin.add_view(MyModelView(Role, db_session))
 
         # define a context processor for merging flask-admin's template context into the
         # flask-security views.
@@ -64,13 +65,16 @@ def create_app(test_config=None):
             )
 
         from . import init  # noqa: F401
-
         from .init import init_app
 
         init_app(app)
 
-        from . import stats
+        from . import static
 
-        app.register_blueprint(stats.bp)
+        app.register_blueprint(static.bp)
+
+        from . import api
+
+        app.register_blueprint(api.bp, url_prefix="/api")
 
         return app

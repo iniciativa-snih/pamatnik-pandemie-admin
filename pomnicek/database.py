@@ -1,6 +1,7 @@
 import click
 from flask import current_app as app
 from flask.cli import with_appcontext
+from datetime import date
 from contextlib import contextmanager
 
 from sqlalchemy import create_engine
@@ -17,9 +18,7 @@ Base.query = db_session.query_property()
 
 
 def init_db():
-    import string
-    import random
-    from .models import Submit, Vaccine, Dead, Case, Role, User  # noqa: F401
+    from .models import Dead, Story, Role, User  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
 
@@ -38,76 +37,14 @@ def init_db():
     )
     db_session.add(admin_user)
 
-    first_names = [
-        "Harry",
-        "Amelia",
-        "Oliver",
-        "Jack",
-        "Isabella",
-        "Charlie",
-        "Sophie",
-        "Mia",
-        "Jacob",
-        "Thomas",
-        "Emily",
-        "Lily",
-        "Ava",
-        "Isla",
-        "Alfie",
-        "Olivia",
-        "Jessica",
-        "Riley",
-        "William",
-        "James",
-        "Geoffrey",
-        "Lisa",
-        "Benjamin",
-        "Stacey",
-        "Lucy",
-    ]
-    last_names = [
-        "Brown",
-        "Smith",
-        "Patel",
-        "Jones",
-        "Williams",
-        "Johnson",
-        "Taylor",
-        "Thomas",
-        "Roberts",
-        "Khan",
-        "Lewis",
-        "Jackson",
-        "Clarke",
-        "James",
-        "Phillips",
-        "Wilson",
-        "Ali",
-        "Mason",
-        "Mitchell",
-        "Rose",
-        "Davis",
-        "Davies",
-        "Rodriguez",
-        "Cox",
-        "Alexander",
-    ]
+    db_session.add(Story(date=date(2021, 3, 8), name=u"Jana P.", story=u"Učitelka na ZŠ", age=55, city=u"Praha"))
+    db_session.add(
+        Story(date=date(2021, 3, 7), name=u"Petr A.", story=u"Učitel na VŠ", age=45, city=u"České Budějovice")
+    )
+    db_session.add(
+        Story(date=date(2021, 3, 7), name=u"Karel Kotvald", story=u"Strojař", age=45, city=u"Hradec Králové")
+    )
 
-    for i in range(len(first_names)):
-        tmp_email = first_names[i].lower() + "." + last_names[i].lower() + "@example.com"
-        tmp_pass = "".join(random.choice(string.ascii_lowercase + string.digits) for i in range(10))
-        db_session.add(
-            User(
-                first_name=first_names[i],
-                last_name=last_names[i],
-                email=tmp_email,
-                password=encrypt_password(tmp_pass),
-                active=True,
-                roles=[
-                    user_role,
-                ],
-            )
-        )
     db_session.commit()
 
 
