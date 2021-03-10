@@ -103,17 +103,21 @@ six==1.15.0
     #   python-dateutil
 speaklater==1.3
     # via flask-babelex
+sqlalchemy-serializer==1.3.4.4
+    # via pomnicek (setup.py)
 sqlalchemy==1.3.22
     # via
     #   alembic
     #   flask-sqlalchemy
     #   pomnicek (setup.py)
+    #   sqlalchemy-serializer
 werkzeug==1.0.1
     # via flask
 wtforms==2.3.3
     # via
     #   flask-admin
     #   flask-wtf
-psycopg2==2.8.6
+
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
+psycopg2==2.8.6
