@@ -18,7 +18,7 @@ Base.query = db_session.query_property()
 
 
 def init_db():
-    from .models import Dead, Story, Role, User  # noqa: F401
+    from .models import Dead, Story, Role, User, Message  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
 
@@ -28,21 +28,62 @@ def init_db():
     db_session.add(super_user_role)
     db_session.commit()
 
-    admin_user = User(
-        first_name="Admin",
-        email="admin",
-        password=encrypt_password("admin"),
-        active=True,
-        roles=[user_role, super_user_role],
+    db_session.add(
+        User(
+            first_name="Admin",
+            email="admin",
+            password=encrypt_password("admin"),
+            active=True,
+            roles=[user_role, super_user_role],
+        )
     )
-    db_session.add(admin_user)
 
-    db_session.add(Story(date=date(2021, 3, 8), name=u"Jana P.", story=u"Učitelka na ZŠ", age=55, city=u"Praha"))
     db_session.add(
-        Story(date=date(2021, 3, 7), name=u"Petr A.", story=u"Učitel na VŠ", age=45, city=u"České Budějovice")
+        User(
+            first_name="Ondra",
+            email="ondra.zahradnik@gmail.com",
+            password=encrypt_password("ondra"),
+            active=True,
+            roles=[user_role],
+        )
+    )
+
+    db_session.add(
+        Story(
+            date=date(2021, 3, 8),
+            name=u"Jana P.",
+            story=u"Učitelka na ZŠ",
+            age=55,
+            city=u"Praha",
+            statue="woman_teacher",
+        )
     )
     db_session.add(
-        Story(date=date(2021, 3, 7), name=u"Karel Kotvald", story=u"Strojař", age=45, city=u"Hradec Králové")
+        Story(
+            date=date(2021, 3, 7),
+            name=u"Petr A.",
+            story=u"Učitel na VŠ",
+            age=45,
+            city=u"České Budějovice",
+            statue="man_teacher",
+        )
+    )
+    db_session.add(
+        Story(
+            date=date(2021, 3, 7),
+            name=u"Karel Kotvald",
+            story=u"Strojař",
+            age=45,
+            city=u"Hradec Králové",
+            statue="man_standing",
+        )
+    )
+    db_session.add(
+        Message(
+            date=date(2021, 3, 7),
+            message="""Od 1.3. je omezen pohyb mezi okresy na celém území ČR, volně pohybovat se lze jenom
+v rámci obce. Platí do 21.3.""",
+        )
     )
 
     db_session.commit()

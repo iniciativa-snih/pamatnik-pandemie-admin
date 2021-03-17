@@ -1,6 +1,6 @@
 from flask import Blueprint, json
 
-from .models import Dead, Story
+from .models import Dead, Story, Message
 
 
 bp = Blueprint("api", __name__)
@@ -25,3 +25,9 @@ def deads():
 def stories():
     stories = [d.to_dict() for d in Story.query.order_by(Story.date.desc()).all()]
     return jsonify(stories)
+
+
+@bp.route("/messages", methods=["GET"])
+def messages():
+    messages = [d.to_dict() for d in Message.query.order_by(Message.date.desc()).all()]
+    return jsonify(messages)

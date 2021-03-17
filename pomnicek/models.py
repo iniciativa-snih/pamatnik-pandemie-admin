@@ -65,3 +65,12 @@ class Story(Base, SerializerMixin):
     story = Column(String, nullable=True)
     age = Column(Integer, nullable=True)
     city = Column(String, nullable=True)
+    statue = Column(String, nullable=False)
+
+
+class Message(Base, SerializerMixin):
+    __tablename__ = "message"
+
+    id = Column(Integer, primary_key=True)
+    date = Column(Date, nullable=False)
+    message = Column(String, nullable=False)
