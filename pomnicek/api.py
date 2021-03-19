@@ -23,7 +23,14 @@ def deads():
 
 @bp.route("/stories", methods=["GET"])
 def stories():
-    stories = [d.to_dict() for d in Story.query.order_by(Story.date.desc()).all()]
+    def remove(d):
+        from copy import copy
+
+        dd = copy(d)
+        del dd["contact_email"]
+        return dd
+
+    stories = [remove(d.to_dict()) for d in Story.query.order_by(Story.date.desc()).all()]
     return jsonify(stories)
 
 
