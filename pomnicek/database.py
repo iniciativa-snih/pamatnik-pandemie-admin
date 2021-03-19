@@ -39,16 +39,6 @@ def init_db():
     )
 
     db_session.add(
-        User(
-            first_name="Ondra",
-            email="ondra.zahradnik@gmail.com",
-            password=encrypt_password("ondra"),
-            active=True,
-            roles=[user_role],
-        )
-    )
-
-    db_session.add(
         Story(
             date=date(2021, 3, 8),
             name=u"Jana P.",
