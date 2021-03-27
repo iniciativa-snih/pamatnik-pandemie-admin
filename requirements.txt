@@ -120,3 +120,4 @@ wtforms==2.3.3
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
+psycopg2
