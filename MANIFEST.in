@@ -1,4 +1,4 @@
-include pomnicek/schema.sql
-graft pomnicek/static
-graft pomnicek/templates
+include pamatnikpandemie/schema.sql
+graft pamatnikpandemie/static
+graft pamatnikpandemie/templates
 global-exclude *.pyc

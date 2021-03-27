@@ -1,1 +1,1 @@
-web: gunicorn pomnicek.wsgi
+web: gunicorn pamatnikpandemie.wsgi

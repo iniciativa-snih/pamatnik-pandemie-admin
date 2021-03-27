@@ -6,7 +6,7 @@ def test_health(client):
 
 
 def test_deads(client):
-    from pomnicek.models import Dead
+    from pamatnikpandemie.models import Dead
 
     target = json.loads(client.get("api/deads"))
     expected = Dead.query.order_by(Dead.date.desc()).first()
@@ -18,7 +18,7 @@ def test_deads(client):
 
 
 def test_stories(client):
-    from pomnicek.models import Story
+    from pamatnikpandemie.models import Story
 
     target = json.loads(client.get("api/stories"))
     expected = Story.query.order_by(Story.date.desc()).all()

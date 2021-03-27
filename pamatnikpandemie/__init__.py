@@ -47,7 +47,7 @@ def create_app(test_config=None):
         # Create admin
         admin = Admin(
             app,
-            "Covid pomníček",
+            "Památník pandemie",
             base_template="my_master.html",
             template_mode="bootstrap3",
         )

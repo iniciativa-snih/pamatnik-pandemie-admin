@@ -1,5 +1,5 @@
 """App entry point."""
-from pomnicek import create_app
+from pamatnikpandemie import create_app
 
 application = create_app()
 

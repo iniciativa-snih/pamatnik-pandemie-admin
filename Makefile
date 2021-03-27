@@ -1,8 +1,8 @@
 brunette:
-	brunette pomnicek tests config.py setup.py
+	brunette pamatnikpandemie tests config.py setup.py
 
 flake:
-	flake8 pomnicek tests config.py setup.py
+	flake8 pamatnikpandemie tests config.py setup.py
 
 test:
 	pytest
@@ -15,19 +15,19 @@ install-dev:
 	source venv/bin/activate && python -m pip install -e ".[dev]"
 	source venv/bin/activate && pre-commit install
 	source venv/bin/activate && python -m pip install ipykernel
-	source venv/bin/activate && ipython kernel install --user --name=pomnicek
+	source venv/bin/activate && ipython kernel install --user --name=pamatnikpandemie
 
 install-test:
 	python -m pip install -e ".[test]"
 
 clean:
-	rm -rf build __pycache__ pomnicek/__pycache__ __pycache__ instance \
-	tests/__pycache__ tests/pomnicek/__pycache__ .pytest_cache *.egg-info .eggs tests/pomnicek/__pycache__\
-	tests/pomnicek/toolkit/__pycache__ tests/pomnicek/toolkit/testing/__pycache__ \
-	pomnicek/toolkit/__pycache__ pomnicek/toolkit/testing/__pycache__ \
-	pomnicek/toolkit/testing/resources/__pycache__ pomnicek/toolkit/testing/avast/__pycache__ \
-	tests/pomnicek/server/__pycache__ tests/pomnicek/toolkit/__pycache__  tests/pomnicek/toolkit/avast/__pycache__ \
-	pomnicek/toolkit/testing/avast/resources/__pycache__
+	rm -rf build __pycache__ pamatnikpandemie/__pycache__ __pycache__ instance \
+	tests/__pycache__ tests/pamatnikpandemie/__pycache__ .pytest_cache *.egg-info .eggs tests/pamatnikpandemie/__pycache__\
+	tests/pamatnikpandemie/toolkit/__pycache__ tests/pamatnikpandemie/toolkit/testing/__pycache__ \
+	pamatnikpandemie/toolkit/__pycache__ pamatnikpandemie/toolkit/testing/__pycache__ \
+	pamatnikpandemie/toolkit/testing/resources/__pycache__ pamatnikpandemie/toolkit/testing/avast/__pycache__ \
+	tests/pamatnikpandemie/server/__pycache__ tests/pamatnikpandemie/toolkit/__pycache__  tests/pamatnikpandemie/toolkit/avast/__pycache__ \
+	pamatnikpandemie/toolkit/testing/avast/resources/__pycache__
 
 locust:
-	locust -f tests/locust.py --headless --host https://pomnicek.herokuapp.com -u 100 -r 5
+	locust -f tests/locust.py --headless --host https://pamatnikpandemie.herokuapp.com -u 100 -r 5

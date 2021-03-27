@@ -2,7 +2,7 @@ import os
 import pytest
 from datetime import date, timedelta
 
-from pomnicek import create_app
+from pamatnikpandemie import create_app
 
 
 with open(os.path.join(os.path.dirname(__file__), "data.sql"), "rb") as f:
@@ -14,12 +14,12 @@ def app():
     app = create_app("config.TestingConfig")
 
     with app.app_context():
-        from pomnicek.init import fmt_date, fmt_number
+        from pamatnikpandemie.init import fmt_date, fmt_number
 
         app.jinja_env.filters["fmt_date"] = fmt_date
         app.jinja_env.filters["fmt_number"] = fmt_number
 
-        from pomnicek.database import init_db, db_session
+        from pamatnikpandemie.database import init_db, db_session
 
         init_db()
         db_session.connection().execute("DELETE FROM user")
@@ -28,7 +28,7 @@ def app():
         db_session.connection().execute("DELETE FROM story")
         db_session.connection().execute("DELETE FROM dead")
 
-        from pomnicek.models import Story, Dead
+        from pamatnikpandemie.models import Story, Dead
 
         db_session.add(Story(date=date.today(), name="Aleš M.", story="Soustružník", age=78, city="Hradec Králové"))
 
