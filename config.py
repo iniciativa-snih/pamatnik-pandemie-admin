@@ -15,6 +15,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = (
         environ["DATABASE_URL"] if "DATABASE_URL" in environ else "DATABASE_URL env variable is missing"
     )
+    API_KEY = environ["API_KEY"] if "API_KEY" in environ else "API_KEY env variable is missing"
 
     # Flask-Security config
     SECURITY_URL_PREFIX = "/admin"

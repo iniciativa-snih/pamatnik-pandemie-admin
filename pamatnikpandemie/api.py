@@ -1,4 +1,4 @@
-from flask import Blueprint, json
+from flask import Blueprint, json, request, current_app, abort
 
 from .models import Dead, Story, Message
 
@@ -29,6 +29,10 @@ def stories():
         dd = copy(d)
         del dd["contact_email"]
         return dd
+
+    request_api_key = request.args.get("api_key", "")
+    if request_api_key != current_app.config["API_KEY"]:
+        abort(403)
 
     stories = [remove(d.to_dict()) for d in Story.query.order_by(Story.date.desc()).all()]
     return jsonify(stories)
