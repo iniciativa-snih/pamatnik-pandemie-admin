@@ -30,8 +30,8 @@ def create_app(test_config=None):
     csp = {
         "default-src": "'self'",
         "font-src": ["'self'", "fonts.gstatic.com"],
-        "style-src": ["'self'", "fonts.googleapis.com"],
-        "script-src": ["'self'", "plausible.io"],
+        "style-src": ["'self'", "fonts.googleapis.com", "cdnjs.cloudflare.com", "'unsafe-inline'"],
+        "script-src": ["'self'", "plausible.io", "cdnjs.cloudflare.com", "maxcdn.bootstrapcdn.com", "'unsafe-inline'"],
         "connect-src": ["'self'", "plausible.io"],
     }
     Talisman(app, content_security_policy=csp)

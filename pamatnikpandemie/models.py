@@ -67,6 +67,7 @@ class Story(Base, SerializerMixin):
     city = Column(String, nullable=True)
     statue = Column(String, nullable=False)
     contact_email = Column(String, nullable=True)
+    public = Column(Boolean, nullable=False, default=False)
 
 
 class Message(Base, SerializerMixin):

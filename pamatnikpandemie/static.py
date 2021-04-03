@@ -1,8 +1,12 @@
 from flask import Blueprint
 
-from flask import render_template, send_from_directory, request
+from flask import render_template, send_from_directory, request, flash
 from flask import current_app as app
 
+from wtforms import Form, StringField, IntegerField, validators, DateField
+
+from .database import db_session
+from .models import Story
 
 bp = Blueprint("static", __name__)
 
@@ -10,6 +14,46 @@ bp = Blueprint("static", __name__)
 @bp.route("/")
 def index():
     return render_template("index.jinja2")
+
+
+class StoryForm(Form):
+    date = DateField(
+        "Datum úmrtí",
+        [validators.DataRequired(), validators.InputRequired(message="Zadejte datum úmrtí")],
+        format="%d.%m.%Y",
+    )
+    name = StringField("Jméno", [validators.DataRequired(message="Zadejte jméno")])
+    story = StringField("Vzpomínka", [validators.Optional()])
+    age = IntegerField("Věk", [validators.Optional()])
+    city = StringField("Město", [validators.Optional()])
+    contact_email = StringField(
+        "Kontaktní email",
+        [
+            validators.InputRequired(message="Zadejte emailovou adresu"),
+            validators.Email(message="Špatná emailová adresa"),
+        ],
+    )
+
+
+@bp.route("/story", methods=["GET", "POST"])
+def story():
+    form = StoryForm(request.form)
+    if request.method == "POST" and form.validate():
+        story = Story(
+            date=form.date.data,
+            name=form.name.data,
+            story=form.story.data,
+            age=form.age.data,
+            city=form.city.data,
+            statue="none",
+            contact_email=form.contact_email.data,
+        )
+        db_session.add(story)
+        db_session.commit()
+        flash("Děkujeme za přidání příběhu.")
+        return render_template("story.jinja2", form=StoryForm())
+
+    return render_template("story.jinja2", form=form)
 
 
 @bp.route("/favicon.ico")
