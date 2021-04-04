@@ -1,7 +1,7 @@
 import click
 from flask import current_app as app
 from flask.cli import with_appcontext
-from datetime import date
+from datetime import date, datetime
 from contextlib import contextmanager
 
 from sqlalchemy import create_engine
@@ -46,6 +46,7 @@ def init_db():
             age=55,
             city=u"Praha",
             statue="woman_teacher",
+            create_time=datetime.now(),
         )
     )
     db_session.add(
@@ -56,6 +57,7 @@ def init_db():
             age=45,
             city=u"České Budějovice",
             statue="man_teacher",
+            create_time=datetime.now(),
         )
     )
     db_session.add(
@@ -66,6 +68,7 @@ def init_db():
             age=45,
             city=u"Hradec Králové",
             statue="man_standing",
+            create_time=datetime.now(),
         )
     )
     db_session.add(

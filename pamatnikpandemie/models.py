@@ -68,6 +68,8 @@ class Story(Base, SerializerMixin):
     statue = Column(String, nullable=False)
     contact_email = Column(String, nullable=True)
     public = Column(Boolean, nullable=False, default=False)
+    create_time = Column(DateTime, nullable=False)
+    email_verified = Column(Boolean, nullable=False, default=False)
 
 
 class Message(Base, SerializerMixin):

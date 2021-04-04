@@ -35,7 +35,7 @@
             <span class="icon-bar"></span>
           </button>
 
-          <a class="navbar-brand" href="">Přidání příběhu do Památníku pandemie</a>
+          <a class="navbar-brand" href="">Přidání vzpomínky do Památníku pandemie</a>
 
         </div>
         <!-- navbar content -->
@@ -47,6 +47,18 @@
           </ul>
         </div>
       </nav>
+
+    <div class="col-md-offset-2 col-md-10 submit-row">
+      <p>
+        Budeme rádi, přidáte-li na webový Památník pandemie vzpomínku na svého blízkého zemřelého.
+      </p>
+      <p>
+        Připište, prosím, jeho jméno, krátkou vzpomínku, datum úmrtí, případně věk a váš email.
+      </p>
+      <p>
+        Vzpomínku po kontrole uveřejníme. Tím společně s vámi uctíme jeho památku.
+      </p>
+    </div>
 
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -60,12 +72,11 @@
     {% endwith %}
 
       {% from "_form_helpers.jinja2" import render_field, render_date_field %}
-      <form id="story" action="/story" method="POST" role="form" class="admin-form form-horizontal" enctype="multipart/form-data">
+      <form id="vzpominka" action="/vzpominka" method="POST" role="form" class="admin-form form-horizontal" enctype="multipart/form-data">
         {{ render_date_field(form.date, placeholder="1.1.2021") }}
         {{ render_field(form.name) }}
         {{ render_field(form.story) }}
         {{ render_field(form.age) }}
-        {{ render_field(form.city) }}
         {{ render_field(form.contact_email) }}
         <hr>
         <div class="form-group">

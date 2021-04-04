@@ -4,6 +4,7 @@ from flask import render_template, send_from_directory, request, flash
 from flask import current_app as app
 
 from wtforms import Form, StringField, IntegerField, validators, DateField
+from datetime import datetime
 
 from .database import db_session
 from .models import Story
@@ -35,8 +36,8 @@ class StoryForm(Form):
     )
 
 
-@bp.route("/story", methods=["GET", "POST"])
-def story():
+@bp.route("/vzpominka", methods=["GET", "POST"])
+def vzpominka():
     form = StoryForm(request.form)
     if request.method == "POST" and form.validate():
         story = Story(
@@ -47,13 +48,14 @@ def story():
             city=form.city.data,
             statue="none",
             contact_email=form.contact_email.data,
+            create_time=datetime.now(),
         )
         db_session.add(story)
         db_session.commit()
-        flash("Děkujeme za přidání příběhu.")
-        return render_template("story.jinja2", form=StoryForm())
+        flash("Děkujeme za přidání vzpomínky. Prosíme o trpělivost než vzpomínku zkontrolujeme a uveřejníme.")
+        return render_template("hotovo.jinja2")
 
-    return render_template("story.jinja2", form=form)
+    return render_template("vzpominka.jinja2", form=form)
 
 
 @bp.route("/favicon.ico")
