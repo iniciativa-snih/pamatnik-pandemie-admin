@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="cs-CZ">
   <head>
-    <title>Vzpomínka - Památník pandemie</title>
+    <title>Příběh - Památník pandemie</title>
 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -27,7 +27,7 @@
     <div class="container">
       <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
-          <a class="navbar-brand" href="">Přidání vzpomínky do Památníku pandemie</a>
+          <a class="navbar-brand" href="">Přidání příběhu do Památníku pandemie</a>
         </div>
       </nav>
 
@@ -36,10 +36,10 @@
         Budeme rádi, přidáte-li na webový Památník pandemie vzpomínku na svého blízkého zemřelého.
       </p>
       <p>
-        Připište, prosím, jeho jméno, krátkou vzpomínku, datum úmrtí, případně věk a váš email.
+        Připište, prosím, jeho jméno, krátký příběh, datum úmrtí, případně věk a váš email.
       </p>
       <p>
-        Vzpomínku po kontrole uveřejníme. Tím společně s vámi uctíme jeho památku.
+        Vzpomínku po kontrole uveřejníme. Tím společně s vámi uctíme její památku.
       </p>
     </div>
 
@@ -55,7 +55,7 @@
     {% endwith %}
 
       {% from "_form_helpers.jinja2" import render_field, render_date_field %}
-      <form id="vzpominka" action="/vzpominka" method="POST" role="form" class="admin-form form-horizontal" enctype="multipart/form-data">
+      <form id="pribeh" action="/pribeh" method="POST" role="form" class="admin-form form-horizontal" enctype="multipart/form-data">
         {{ render_date_field(form.date, placeholder="1.1.2021") }}
         {{ render_field(form.name) }}
         {{ render_field(form.story) }}

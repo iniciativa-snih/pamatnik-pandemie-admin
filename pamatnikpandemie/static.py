@@ -24,7 +24,7 @@ class StoryForm(Form):
         format="%d.%m.%Y",
     )
     name = StringField("Jméno", [validators.DataRequired(message="Zadejte jméno")])
-    story = StringField("Vzpomínka", [validators.Optional()])
+    story = StringField("Příběh", [validators.Optional()])
     age = IntegerField("Věk", [validators.Optional()])
     city = StringField("Město", [validators.Optional()])
     contact_email = StringField(
@@ -36,8 +36,8 @@ class StoryForm(Form):
     )
 
 
-@bp.route("/vzpominka", methods=["GET", "POST"])
-def vzpominka():
+@bp.route("/pribeh", methods=["GET", "POST"])
+def pribeh():
     form = StoryForm(request.form)
     if request.method == "POST" and form.validate():
         story = Story(
@@ -52,10 +52,10 @@ def vzpominka():
         )
         db_session.add(story)
         db_session.commit()
-        flash("Děkujeme za přidání vzpomínky. Prosíme o trpělivost než vzpomínku zkontrolujeme a uveřejníme.")
+        flash("Děkujeme za přidání příběhu. Prosíme o trpělivost než příběh zkontrolujeme a uveřejníme.")
         return render_template("hotovo.jinja2")
 
-    return render_template("vzpominka.jinja2", form=form)
+    return render_template("pribeh.jinja2", form=form)
 
 
 @bp.route("/favicon.ico")
