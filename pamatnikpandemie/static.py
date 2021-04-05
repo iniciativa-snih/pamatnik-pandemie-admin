@@ -24,7 +24,7 @@ class StoryForm(Form):
         format="%d.%m.%Y",
     )
     name = StringField("Jméno", [validators.DataRequired(message="Zadejte jméno")])
-    story = StringField("Příběh", [validators.Optional()])
+    story = StringField("Vzpomínka", [validators.Optional()])
     age = IntegerField("Věk", [validators.Optional()])
     city = StringField("Město", [validators.Optional()])
     contact_email = StringField(
