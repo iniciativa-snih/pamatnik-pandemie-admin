@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from flask import render_template, send_from_directory, request, flash
+from flask import render_template, send_from_directory, request, flash, redirect
 from flask import current_app as app
 
 from wtforms import Form, StringField, IntegerField, validators, DateField
@@ -53,9 +53,14 @@ def pribeh():
         db_session.add(story)
         db_session.commit()
         flash("Děkujeme za přidání příběhu. Prosíme o trpělivost než příběh zkontrolujeme a uveřejníme.")
-        return render_template("hotovo.jinja2")
+        return redirect("/hotovo")
 
     return render_template("pribeh.jinja2", form=form)
+
+
+@bp.route("/hotovo", methods=["GET"])
+def hotovo():
+    return render_template("hotovo.jinja2")
 
 
 @bp.route("/favicon.ico")
