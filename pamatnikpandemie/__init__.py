@@ -12,7 +12,7 @@ from flask_admin import helpers as admin_helpers
 
 
 def create_app(test_config=None):
-    app = Flask(__name__, instance_relative_config=False, static_folder="static")
+    app = Flask(__name__, instance_relative_config=False, static_folder="")
 
     if test_config is not None:
         config_class = test_config
