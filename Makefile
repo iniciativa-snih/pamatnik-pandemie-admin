@@ -30,4 +30,7 @@ clean:
 	pamatnikpandemie/toolkit/testing/avast/resources/__pycache__
 
 locust:
-	locust -f tests/locust.py --headless --host https://pamatnikpandemie.herokuapp.com -u 100 -r 5
+	locust -f tests/locust.py --headless --host https://admin.pamatnikpandemie.cz -u 50 -r 5
+
+locust-web:
+	locust -f tests/locust_web.py --headless --host https://www.pamatnikpandemie.cz -u 50 -r 5
