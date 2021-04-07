@@ -39,6 +39,7 @@ class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
     DEVELOPMENT = False
+    SECRET_KEY = environ["SECRET_KEY"]
 
 
 class DevelopmentConfig(Config):
