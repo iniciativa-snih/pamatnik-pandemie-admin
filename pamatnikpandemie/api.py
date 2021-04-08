@@ -29,6 +29,8 @@ def stories():
         dd = copy(d)
         del dd["contact_email"]
         del dd["public"]
+        del dd["create_time"]
+        del dd["email_verified"]
         return dd
 
     request_api_key = request.args.get("api_key", "")
