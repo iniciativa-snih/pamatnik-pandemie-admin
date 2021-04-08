@@ -4,6 +4,8 @@ from flask import render_template, send_from_directory, request, flash, redirect
 from flask import current_app as app
 
 from wtforms import Form, StringField, IntegerField, validators, DateField
+from wtforms.widgets import TextArea
+
 from datetime import datetime
 
 from .database import db_session
@@ -24,7 +26,7 @@ class StoryForm(Form):
         format="%d.%m.%Y",
     )
     name = StringField("Jméno", [validators.DataRequired(message="Zadejte jméno")])
-    story = StringField("Vzpomínka", [validators.Optional()])
+    story = StringField("Vzpomínka", [validators.Optional()], widget=TextArea())
     age = IntegerField("Věk", [validators.Optional()])
     city = StringField("Město", [validators.Optional()])
     contact_email = StringField(

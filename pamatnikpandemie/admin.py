@@ -22,7 +22,7 @@ class AdminModelView(sqla.ModelView):
 
 
 class StoryModelView(AdminModelView):
-    form_widget_args = {"story": {"rows": 2}}
+    form_widget_args = {"story": {"rows": 5}}
 
     form_choices = {
         "statue": [
