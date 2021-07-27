@@ -14,6 +14,7 @@ def get_deads():
     deads = deads.sort_values("date", ascending=True)
     deads = deads[deads.date >= "2020-03-22"]
     deads["daily"] = deads.cumulative.diff()
+    deads = deads[deads.daily != 0]
     db_session.connection().execute("DELETE FROM dead")
     deads.to_sql("dead", db_session.connection(), if_exists="replace", index=False)
     db_session.commit()
